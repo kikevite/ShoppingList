@@ -2,11 +2,17 @@ package edu.upc.eseiaat.pma.shoppinglist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class ShoppingListActivity extends AppCompatActivity {
+
+    private ArrayList<String> itemList;
+    private ArrayAdapter<String> adapter;
 
     private ListView list;
     private Button btn_add;
@@ -20,5 +26,15 @@ public class ShoppingListActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.list);
         btn_add = (Button) findViewById(R.id.btn_add);
         edit_item = (EditText) findViewById(R.id.edit_item);
+
+        itemList= new ArrayList<>();
+        itemList.add("Patates");
+        itemList.add("PS4");
+        itemList.add("Pomes");
+        itemList.add("Pistachos");
+
+        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, itemList);
+
+        list.setAdapter(adapter);
     }
 }
