@@ -34,9 +34,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         edit_item = (EditText) findViewById(R.id.edit_item);
 
         itemList= new ArrayList<>();
-        itemList.add("Patates");
+        itemList.add("Patatas");
         itemList.add("PS4");
-        itemList.add("Pomes");
+        itemList.add("Manzanas");
         itemList.add("Pistachos");
 
         adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, itemList);
@@ -57,7 +57,6 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
 
         list.setAdapter(adapter);
-
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> list, View item, int pos, long id) {
@@ -79,10 +78,8 @@ public class ShoppingListActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.create().show();
-
     }
 
     private void addItem() {
@@ -91,9 +88,6 @@ public class ShoppingListActivity extends AppCompatActivity {
             itemList.add(item_text);
             adapter.notifyDataSetChanged();
             edit_item.setText("");
-            ///Fet fins a 32.06
         }
-
-
     }
 }

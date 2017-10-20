@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lista de la compra</string>
+    <string name="confirm">Confirmación</string>
+    <string name="remove">Borrar</string>
+    <string name="confirm_message">¿Seguro que quieres borrar \'%1$s\'?</string>
+</resources>
