@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ShoppingListActivity extends AppCompatActivity {
 
     private ArrayList<String> itemList;
-    private ArrayAdapter<String> adapter;
+    private ShoppingListAdapter adapter;
 
     private ListView list;
     private Button btn_add;
@@ -39,7 +39,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         itemList.add("Manzanas");
         itemList.add("Pistachos");
 
-        adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, itemList);
+        adapter=new ShoppingListAdapter(this,R.layout.shopping_item, itemList);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
