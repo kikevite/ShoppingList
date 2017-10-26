@@ -57,6 +57,14 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
 
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                itemList.get(position).toggleChecked();
+                adapter.notifyDataSetChanged();
+            }
+        });
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> list, View item, int pos, long id) {
@@ -70,7 +78,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.confirm);
         String fmt = getResources().getString(R.string.confirm_message);
-        builder.setMessage(String.format(fmt, itemList.get(pos)));
+        builder.setMessage(String.format(fmt, itemList.get(pos).getText()));
         builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

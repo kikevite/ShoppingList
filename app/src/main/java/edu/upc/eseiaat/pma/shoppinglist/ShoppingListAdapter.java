@@ -31,10 +31,11 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingItem> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             result = inflater.inflate(R.layout.shopping_item, null);
         }
-        CheckBox shopping_item = (CheckBox) result.findViewById(R.id.shopping_item);
+        CheckBox checkbox = (CheckBox) result.findViewById(R.id.shopping_item);
         ShoppingItem item = getItem(position);
 
-        shopping_item.setText(item.getText());
+        checkbox.setText(item.getText());
+        checkbox.setChecked(item.isChecked());
         return result;
     }
 }
