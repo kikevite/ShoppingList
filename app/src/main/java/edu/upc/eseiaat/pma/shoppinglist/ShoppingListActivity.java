@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private EditText edit_item;
 
     private static final String FILENAME = "shopping_list.txt";
+    private static final int MAX_BYTES = 8000;
     private void writeItemList(){
         try {
             FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -40,15 +42,36 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
             fos.close();
         } catch (FileNotFoundException e) {
-            Log.i("kike", "writeItemList: FileNotFoundException");
+            Log.e("kike", "writeItemList: FileNotFoundException");
             Toast.makeText(this, R.string.cannot_write, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Log.i("kike", "writeItemList: IOException");
+            Log.e("kike", "writeItemList: IOException");
             Toast.makeText(this, R.string.cannot_write, Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    private void readItemList(){
+        itemList = new ArrayList<>();
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            byte[] buffer = new byte[MAX_BYTES];
+            int nread = fis.read(buffer);
+            String content = new String(buffer, 0, nread);
+            String[] lines = content.split("\n");
+            for (String line : lines) {
+                String[] parts = line.split(";");
+                itemList.add(new ShoppingItem(parts[0], parts[1].equals("true")));
+            }
+            fis.close();
+        } catch (FileNotFoundException e) {
+            Log.i("kike", "readItemList: FileNotFoundException");
+
+        } catch (IOException e) {
+            Log.e("kike", "readItemList: IOException");
+            Toast.makeText(this, R.string.cannot_read, Toast.LENGTH_SHORT).show();
+        }
+    }
     @Override
     protected void onStop() {
         super.onStop();
@@ -65,11 +88,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         btn_add = (Button) findViewById(R.id.btn_add);
         edit_item = (EditText) findViewById(R.id.edit_item);
 
-        itemList= new ArrayList<>();
-        itemList.add(new ShoppingItem("Patatas", true));
-        itemList.add(new ShoppingItem("PS4", true));
-        itemList.add(new ShoppingItem("Manzanas"));
-        itemList.add(new ShoppingItem("Pistachos"));
+        readItemList();
 
         adapter=new ShoppingListAdapter(this,R.layout.shopping_item, itemList);
 
